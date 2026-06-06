@@ -6,7 +6,7 @@ A minimal personal website for GitHub Pages.
 
 - Web Coding projects
 - GitHub repositories
-- GitHub contribution graph
+- GitHub public contribution graph
 - Notion article embed
 - Places visited map
 - Social links
@@ -22,6 +22,13 @@ Most personal content lives in `script.js`:
 - `socials`
 
 The site is static and can be deployed directly from the repository root with GitHub Pages.
+
+## GitHub Contribution Graph
+
+The contribution graph is generated from GitHub's public contribution endpoint and saved
+as `contributions.svg`. Private/self-only contribution counts are not available without an
+authenticated GitHub token, so the public website may differ from the graph you see while
+logged in to GitHub.
 
 ## Notion Article Sync
 
