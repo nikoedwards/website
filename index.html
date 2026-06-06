@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Niko Edwards - Personal Website</title>
+    <meta
+      name="description"
+      content="Niko Edwards 的个人网站，展示 Web Coding 项目、GitHub 仓库、Contribution 面板和 Notion 文章。"
+    />
+    <meta property="og:title" content="Niko Edwards - Personal Website" />
+    <meta
+      property="og:description"
+      content="Web Coding projects, GitHub repositories, Notion articles, and social links."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <header class="site-header" aria-label="Primary">
+      <a class="brand" href="#top">Niko Edwards</a>
+      <nav class="nav-links" aria-label="Site navigation">
+        <a href="#projects">Projects</a>
+        <a href="#github">GitHub</a>
+        <a href="#articles">Articles</a>
+        <a href="#elsewhere">Elsewhere</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-kicker">Web Coding / GitHub Pages / Notion</div>
+        <h1 id="hero-title">Niko Edwards</h1>
+        <p class="hero-copy">
+          一个简洁的个人主页，用来收拢我在 Web Coding、GitHub 项目和 Notion 写作里的公开轨迹。
+        </p>
+
+        <div class="hero-meta" aria-label="Profile summary">
+          <div>
+            <span>GitHub</span>
+            <strong>@nikoedwards</strong>
+          </div>
+          <div>
+            <span>Focus</span>
+            <strong>Web Coding</strong>
+          </div>
+          <div>
+            <span>Writing</span>
+            <strong>Notion Notes</strong>
+          </div>
+          <div>
+            <span>Deploy</span>
+            <strong>GitHub Pages</strong>
+          </div>
+        </div>
+
+        <div class="profile-strip" aria-label="GitHub profile">
+          <img
+            id="avatar"
+            class="avatar"
+            src="https://avatars.githubusercontent.com/u/76367747?v=4"
+            alt="Niko Edwards GitHub avatar"
+          />
+          <div class="profile-copy">
+            <span id="profile-line">Building in public from GitHub.</span>
+            <a href="https://github.com/nikoedwards" target="_blank" rel="noreferrer">
+              github.com/nikoedwards
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <div class="ticker" aria-hidden="true">
+        <div>
+          CURRENTLY · WEB CODING · OPEN SOURCE · NOTION ARTICLES · GITHUB PAGES · SHIP IN PUBLIC ·
+          CURRENTLY · WEB CODING · OPEN SOURCE · NOTION ARTICLES · GITHUB PAGES · SHIP IN PUBLIC ·
+        </div>
+      </div>
+
+      <section id="projects" class="section" aria-labelledby="projects-title">
+        <div class="section-index">§ 01 · WEB CODING</div>
+        <div class="section-head">
+          <h2 id="projects-title">Projects shipped on the web</h2>
+          <a class="text-link" href="https://github.com/nikoedwards" target="_blank" rel="noreferrer">
+            All GitHub →
+          </a>
+        </div>
+        <div id="project-grid" class="project-grid" aria-live="polite"></div>
+      </section>
+
+      <section id="github" class="section github-section" aria-labelledby="github-title">
+        <div class="section-index">§ 02 · GITHUB</div>
+        <div class="section-head">
+          <h2 id="github-title">Repositories and contribution graph</h2>
+          <a class="text-link" href="https://github.com/nikoedwards?tab=repositories" target="_blank" rel="noreferrer">
+            Repositories →
+          </a>
+        </div>
+
+        <figure class="contribution-frame">
+          <img
+            src="https://ghchart.rshah.org/1f6f4a/nikoedwards"
+            alt="GitHub contribution graph for nikoedwards"
+            loading="lazy"
+          />
+          <figcaption>Live GitHub contribution graph for @nikoedwards</figcaption>
+        </figure>
+
+        <div class="repo-summary" aria-label="GitHub summary">
+          <div>
+            <span>Public repos</span>
+            <strong id="repo-count">--</strong>
+          </div>
+          <div>
+            <span>Followers</span>
+            <strong id="follower-count">--</strong>
+          </div>
+          <div>
+            <span>Latest push</span>
+            <strong id="latest-push">Loading</strong>
+          </div>
+        </div>
+
+        <div id="repo-grid" class="repo-grid" aria-live="polite">
+          <article class="repo-card loading-card">Loading GitHub repositories...</article>
+        </div>
+      </section>
+
+      <section id="articles" class="section" aria-labelledby="articles-title">
+        <div class="section-index">§ 03 · ARTICLES</div>
+        <div class="section-head">
+          <h2 id="articles-title">Notion journal</h2>
+          <a id="notion-link" class="text-link" href="#" target="_blank" rel="noreferrer">Notion →</a>
+        </div>
+        <p class="section-copy">
+          文章先写在 Notion，成熟后再放到这里作为一个公开索引。技术笔记、项目复盘和长期主题都会收在这个板块里。
+        </p>
+        <div id="article-grid" class="article-grid" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer id="elsewhere" class="site-footer">
+      <div>
+        <strong>Niko Edwards</strong>
+        <p>Personal website maintained in public. Built with plain HTML, CSS, and JavaScript.</p>
+      </div>
+      <nav id="social-links" class="footer-links" aria-label="Social links"></nav>
+    </footer>
+  </body>
+</html>
