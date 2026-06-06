@@ -2,7 +2,9 @@ const siteConfig = {
   name: "Niko Edwards",
   githubUser: "nikoedwards",
   email: "1003056501@qq.com",
-  notionUrl: "",
+  notionUrl:
+    "https://www.notion.so/62f4ab3b6325461fa526f9996ee53ac9?v=db711b6352bd4edca65d7a46660d917f&source=copy_link",
+  articleFeedUrl: "articles.json",
   featuredProjects: [
     {
       title: "Personal Website",
@@ -11,26 +13,6 @@ const siteConfig = {
       stack: ["HTML", "CSS", "JavaScript"],
       repo: "https://github.com/nikoedwards/website",
       live: "https://nikoedwards.github.io/website/",
-    },
-  ],
-  articles: [
-    {
-      title: "Web Coding Notes",
-      date: "Now",
-      summary: "项目构建、页面设计、前端工程和调试记录会从 Notion 映射到这里。",
-      tag: "Coding",
-    },
-    {
-      title: "Project Retrospectives",
-      date: "Later",
-      summary: "记录每个项目从想法、实现到上线的过程，也保留关键取舍。",
-      tag: "Build",
-    },
-    {
-      title: "Reading and Thinking",
-      date: "Later",
-      summary: "长期阅读、AI、产品和技术学习相关的公开笔记索引。",
-      tag: "Notes",
     },
   ],
   socials: [
@@ -110,7 +92,35 @@ function renderProjects() {
   });
 }
 
-function renderArticles() {
+const fallbackArticles = [
+  {
+    title: "Notion Articles",
+    date: "Live source",
+    summary: "文章源头维护在 Notion。配置同步后，这里会自动显示最新的公开文章索引。",
+    tags: ["Notion"],
+    url: siteConfig.notionUrl,
+  },
+];
+
+function createArticleCard(article) {
+  const card = document.createElement("article");
+  card.className = "article-card";
+
+  const content = document.createElement("div");
+  content.append(createTextElement("span", article.date || "Notion", "article-date"));
+  content.append(createTextElement("h3", article.title || "Untitled"));
+  content.append(createTextElement("p", article.summary || "No summary yet."));
+  content.append(createTagList(article.tags?.length ? article.tags : ["Article"]));
+
+  const links = document.createElement("div");
+  links.className = "card-links";
+  if (article.url) links.append(createCardLink("Read →", article.url));
+
+  card.append(content, links);
+  return card;
+}
+
+async function renderArticles() {
   const link = byId("notion-link");
   if (siteConfig.notionUrl) {
     link.href = siteConfig.notionUrl;
@@ -121,24 +131,15 @@ function renderArticles() {
   const grid = byId("article-grid");
   grid.innerHTML = "";
 
-  siteConfig.articles.forEach((article) => {
-    const card = document.createElement("article");
-    card.className = "article-card";
-
-    const content = document.createElement("div");
-    content.append(createTextElement("span", article.date, "article-date"));
-    content.append(createTextElement("h3", article.title));
-    content.append(createTextElement("p", article.summary));
-    content.append(createTagList([article.tag]));
-
-    const links = document.createElement("div");
-    links.className = "card-links";
-    const url = article.url || siteConfig.notionUrl;
-    if (url) links.append(createCardLink("Read →", url));
-
-    card.append(content, links);
-    grid.append(card);
-  });
+  try {
+    const response = await fetch(`${siteConfig.articleFeedUrl}?v=${Date.now()}`);
+    if (!response.ok) throw new Error("Article feed unavailable");
+    const articles = await response.json();
+    const visibleArticles = Array.isArray(articles) && articles.length ? articles : fallbackArticles;
+    visibleArticles.forEach((article) => grid.append(createArticleCard(article)));
+  } catch (error) {
+    fallbackArticles.forEach((article) => grid.append(createArticleCard(article)));
+  }
 }
 
 function renderSocials() {
