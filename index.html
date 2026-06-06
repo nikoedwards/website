@@ -6,12 +6,12 @@
     <title>Niko Edwards - Personal Website</title>
     <meta
       name="description"
-      content="Niko Edwards 的个人网站，展示 Web Coding 项目、GitHub 仓库、Contribution 面板和 Notion 文章。"
+      content="Niko Edwards 的个人网站，展示 Web Coding 项目、GitHub 仓库、Contribution 面板、Notion 文章和去过的地方。"
     />
     <meta property="og:title" content="Niko Edwards - Personal Website" />
     <meta
       property="og:description"
-      content="Web Coding projects, GitHub repositories, Notion articles, and social links."
+      content="Web Coding projects, GitHub repositories, Notion articles, and places visited."
     />
     <meta property="og:type" content="website" />
     <link rel="stylesheet" href="styles.css" />
@@ -19,39 +19,52 @@
   </head>
   <body>
     <header class="site-header" aria-label="Primary">
-      <a class="brand" href="#top">Niko Edwards</a>
-      <nav class="nav-links" aria-label="Site navigation">
-        <a href="#projects">Projects</a>
-        <a href="#github">GitHub</a>
-        <a href="#articles">Articles</a>
-        <a href="#elsewhere">Elsewhere</a>
-      </nav>
+      <div class="site-header-inner">
+        <a class="brand" href="#top">Niko Edwards</a>
+        <div class="header-cluster">
+          <nav class="nav-links" aria-label="Site navigation">
+            <a href="#projects" data-i18n="nav.projects">Projects</a>
+            <a href="#github" data-i18n="nav.github">GitHub</a>
+            <a href="#articles" data-i18n="nav.articles">Articles</a>
+            <a href="#places" data-i18n="nav.places">Places</a>
+            <a href="#elsewhere" data-i18n="nav.elsewhere">Elsewhere</a>
+          </nav>
+          <div class="display-controls" aria-label="Display controls">
+            <button id="language-toggle" class="control-button" type="button" aria-label="Switch language">
+              EN
+            </button>
+            <button id="theme-toggle" class="control-button" type="button" aria-label="Switch theme">
+              Dark
+            </button>
+          </div>
+        </div>
+      </div>
     </header>
 
     <main id="top">
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-kicker">Web Coding / GitHub Pages / Notion</div>
+        <div class="hero-kicker" data-i18n="hero.kicker">Web Coding / GitHub Pages / Notion</div>
         <h1 id="hero-title">Niko Edwards</h1>
-        <p class="hero-copy">
+        <p class="hero-copy" data-i18n="hero.copy">
           一个简洁的个人主页，用来收拢我在 Web Coding、GitHub 项目和 Notion 写作里的公开轨迹。
         </p>
 
         <div class="hero-meta" aria-label="Profile summary">
           <div>
-            <span>GitHub</span>
+            <span data-i18n="hero.meta.githubLabel">GitHub</span>
             <strong>@nikoedwards</strong>
           </div>
           <div>
-            <span>Focus</span>
-            <strong>Web Coding</strong>
+            <span data-i18n="hero.meta.focusLabel">Focus</span>
+            <strong data-i18n="hero.meta.focusValue">Web Coding</strong>
           </div>
           <div>
-            <span>Writing</span>
-            <strong>Notion Notes</strong>
+            <span data-i18n="hero.meta.writingLabel">Writing</span>
+            <strong data-i18n="hero.meta.writingValue">Notion Notes</strong>
           </div>
           <div>
-            <span>Deploy</span>
-            <strong>GitHub Pages</strong>
+            <span data-i18n="hero.meta.deployLabel">Deploy</span>
+            <strong data-i18n="hero.meta.deployValue">GitHub Pages</strong>
           </div>
         </div>
 
@@ -72,17 +85,23 @@
       </section>
 
       <div class="ticker" aria-hidden="true">
-        <div>
+        <div id="ticker-line">
           CURRENTLY · WEB CODING · OPEN SOURCE · NOTION ARTICLES · GITHUB PAGES · SHIP IN PUBLIC ·
           CURRENTLY · WEB CODING · OPEN SOURCE · NOTION ARTICLES · GITHUB PAGES · SHIP IN PUBLIC ·
         </div>
       </div>
 
       <section id="projects" class="section" aria-labelledby="projects-title">
-        <div class="section-index">§ 01 · WEB CODING</div>
+        <div class="section-index" data-i18n="projects.index">§ 01 · WEB CODING</div>
         <div class="section-head">
-          <h2 id="projects-title">Projects shipped on the web</h2>
-          <a class="text-link" href="https://github.com/nikoedwards" target="_blank" rel="noreferrer">
+          <h2 id="projects-title" data-i18n="projects.title">Projects shipped on the web</h2>
+          <a
+            class="text-link"
+            href="https://github.com/nikoedwards"
+            target="_blank"
+            rel="noreferrer"
+            data-i18n="projects.allGithub"
+          >
             All GitHub →
           </a>
         </div>
@@ -90,10 +109,16 @@
       </section>
 
       <section id="github" class="section github-section" aria-labelledby="github-title">
-        <div class="section-index">§ 02 · GITHUB</div>
+        <div class="section-index" data-i18n="github.index">§ 02 · GITHUB</div>
         <div class="section-head">
-          <h2 id="github-title">Repositories and contribution graph</h2>
-          <a class="text-link" href="https://github.com/nikoedwards?tab=repositories" target="_blank" rel="noreferrer">
+          <h2 id="github-title" data-i18n="github.title">Repositories and contribution graph</h2>
+          <a
+            class="text-link"
+            href="https://github.com/nikoedwards?tab=repositories"
+            target="_blank"
+            rel="noreferrer"
+            data-i18n="github.repositories"
+          >
             Repositories →
           </a>
         </div>
@@ -104,40 +129,91 @@
             alt="GitHub contribution graph for nikoedwards"
             loading="lazy"
           />
-          <figcaption>Live GitHub contribution graph for @nikoedwards</figcaption>
+          <figcaption data-i18n="github.contributionCaption">
+            Live GitHub contribution graph for @nikoedwards
+          </figcaption>
         </figure>
 
         <div class="repo-summary" aria-label="GitHub summary">
           <div>
-            <span>Public repos</span>
+            <span data-i18n="github.publicRepos">Public repos</span>
             <strong id="repo-count">--</strong>
           </div>
           <div>
-            <span>Followers</span>
+            <span data-i18n="github.followers">Followers</span>
             <strong id="follower-count">--</strong>
           </div>
           <div>
-            <span>Latest push</span>
+            <span data-i18n="github.latestPush">Latest push</span>
             <strong id="latest-push">Loading</strong>
           </div>
         </div>
 
         <div id="repo-grid" class="repo-grid" aria-live="polite">
-          <article class="repo-card loading-card">Loading GitHub repositories...</article>
+          <article class="repo-card loading-card" data-i18n="github.loading">Loading GitHub repositories...</article>
         </div>
       </section>
 
       <section id="articles" class="section" aria-labelledby="articles-title">
-        <div class="section-index">§ 03 · ARTICLES</div>
+        <div class="section-index" data-i18n="articles.index">§ 03 · ARTICLES</div>
         <div class="section-head">
-          <h2 id="articles-title">Notion journal</h2>
-          <a id="notion-link" class="text-link" href="#" target="_blank" rel="noreferrer">Notion →</a>
+          <h2 id="articles-title" data-i18n="articles.title">Notion journal</h2>
+          <a id="notion-link" class="text-link" href="#" target="_blank" rel="noreferrer" data-i18n="articles.open">
+            Open Notion →
+          </a>
         </div>
-        <p class="section-copy">
-          文章源头维护在 Notion，这里展示同步后的公开索引。技术笔记、项目复盘和长期主题都会收在这个板块里。
+        <p class="section-copy" data-i18n="articles.copy">
+          文章直接维护在 Notion，网站嵌入同一个公开页面。技术笔记、项目复盘和长期主题都会收在这个板块里。
         </p>
-        <div id="article-grid" class="article-grid" aria-live="polite">
-          <article class="article-card loading-card">Loading articles...</article>
+
+        <div class="notion-embed-shell">
+          <iframe
+            id="notion-frame"
+            class="notion-frame"
+            title="Niko Edwards Notion articles"
+            loading="lazy"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <details class="article-fallback">
+          <summary data-i18n="articles.fallbackTitle">Synced article index</summary>
+          <div id="article-grid" class="article-grid" aria-live="polite">
+            <article class="article-card loading-card" data-i18n="articles.loading">Loading articles...</article>
+          </div>
+        </details>
+      </section>
+
+      <section id="places" class="section" aria-labelledby="places-title">
+        <div class="section-index" data-i18n="places.index">§ 04 · PLACES</div>
+        <div class="section-head">
+          <h2 id="places-title" data-i18n="places.title">Places I've been</h2>
+          <span id="visited-count" class="text-badge">1 place</span>
+        </div>
+        <p class="section-copy" data-i18n="places.copy">
+          一张轻量的世界地图，记录我去过的城市。地图由数据驱动，后续新增地点只需要更新配置。
+        </p>
+
+        <div class="map-panel">
+          <svg class="world-map" viewBox="0 0 1000 520" role="img" aria-labelledby="map-title map-desc">
+            <title id="map-title">Visited places map</title>
+            <desc id="map-desc">A simplified world map with Hong Kong highlighted.</desc>
+            <rect class="map-ocean" width="1000" height="520" rx="8"></rect>
+            <g class="map-grid" aria-hidden="true">
+              <path d="M0 130H1000M0 260H1000M0 390H1000M250 0V520M500 0V520M750 0V520"></path>
+            </g>
+            <g class="map-land" aria-hidden="true">
+              <path d="M95 132 160 88 245 96 307 138 288 202 210 224 150 204 84 176Z"></path>
+              <path d="M272 232 330 250 362 318 342 432 286 468 252 404 230 316Z"></path>
+              <path d="M458 132 548 92 668 106 790 124 858 178 826 238 690 226 606 242 532 208 452 188Z"></path>
+              <path d="M516 214 606 236 642 326 604 434 526 396 488 300Z"></path>
+              <path d="M770 300 846 312 900 356 862 410 780 390 736 344Z"></path>
+              <path d="M706 94 780 72 850 88 874 118 804 132 728 122Z"></path>
+            </g>
+            <g id="visited-markers" class="visited-markers"></g>
+          </svg>
+          <div id="visited-list" class="visited-list" aria-label="Visited places"></div>
         </div>
       </section>
     </main>
@@ -145,7 +221,9 @@
     <footer id="elsewhere" class="site-footer">
       <div>
         <strong>Niko Edwards</strong>
-        <p>Personal website maintained in public. Built with plain HTML, CSS, and JavaScript.</p>
+        <p data-i18n="footer.copy">
+          Personal website maintained in public. Built with plain HTML, CSS, and JavaScript.
+        </p>
       </div>
       <nav id="social-links" class="footer-links" aria-label="Social links"></nav>
     </footer>

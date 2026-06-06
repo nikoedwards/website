@@ -5,7 +5,7 @@ const databaseId =
   process.env.NOTION_DATABASE_ID || "62f4ab3b6325461fa526f9996ee53ac9";
 const notionVersion = process.env.NOTION_VERSION || "2022-06-28";
 const notionDatabaseUrl =
-  "https://www.notion.so/62f4ab3b6325461fa526f9996ee53ac9?v=db711b6352bd4edca65d7a46660d917f&source=copy_link";
+  "https://guttural-phlox-926.notion.site/62f4ab3b6325461fa526f9996ee53ac9?v=db711b6352bd4edca65d7a46660d917f";
 
 if (!notionToken) {
   console.log("NOTION_TOKEN is not set. Keeping the existing article feed.");

@@ -7,7 +7,8 @@ A minimal personal website for GitHub Pages.
 - Web Coding projects
 - GitHub repositories
 - GitHub contribution graph
-- Notion article index
+- Notion article embed
+- Places visited map
 - Social links
 
 ## Edit Content
@@ -15,17 +16,17 @@ A minimal personal website for GitHub Pages.
 Most personal content lives in `script.js`:
 
 - `featuredProjects`
-- `articles`
 - `notionUrl`
+- `notionEmbedUrl`
+- `visitedPlaces`
 - `socials`
 
 The site is static and can be deployed directly from the repository root with GitHub Pages.
 
 ## Notion Article Sync
 
-Notion cannot be embedded directly in a GitHub Pages iframe because Notion sends framing
-protection headers. Instead, this repo syncs a public article index from Notion into
-`articles.json`.
+The main article section uses Notion's public embed URL. The optional GitHub Actions sync
+keeps `articles.json` available as a fallback index if the embed is ever unavailable.
 
 To enable automatic sync:
 
