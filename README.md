@@ -2,6 +2,10 @@
 
 A minimal personal website for GitHub Pages.
 
+## Live Site
+
+https://nikoedwards.github.io/website/index.html
+
 ## Sections
 
 - Vibe Coding projects
