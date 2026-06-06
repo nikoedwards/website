@@ -150,20 +150,100 @@ img {
   border-bottom-color: var(--green);
 }
 
-.control-button {
-  min-width: 58px;
-  min-height: 36px;
-  padding: 6px 10px;
+.display-controls {
+  align-items: center;
+  gap: 10px;
+}
+
+.language-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid #2d332f;
+  border-radius: 8px;
+  background: #111411;
+}
+
+.language-option {
+  min-width: 38px;
+  min-height: 30px;
+  padding: 5px 9px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #a8aea7;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.language-option.is-active {
+  background: #22d47b;
+  color: #ffffff;
+}
+
+.icon-button {
+  width: 38px;
+  height: 36px;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--panel);
   color: var(--ink);
-  font-size: 13px;
-  font-weight: 800;
 }
 
-.control-button:hover {
+.icon-button:hover {
   border-color: var(--green);
+}
+
+.theme-icon {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.theme-icon::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 8px;
+  height: 8px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  box-shadow:
+    0 -4px 0 -3px currentColor,
+    4px -2px 0 -3px currentColor,
+    -4px -2px 0 -3px currentColor;
+}
+
+.theme-icon::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 12px;
+  width: 6px;
+  height: 5px;
+  border-top: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+}
+
+[data-theme="dark"] .theme-icon::before {
+  left: 2px;
+  top: 2px;
+  width: 15px;
+  height: 15px;
+  border: 0;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 5px 0 0 var(--panel) inset;
+}
+
+[data-theme="dark"] .theme-icon::after {
+  display: none;
 }
 
 main {
@@ -176,7 +256,7 @@ main {
 }
 
 .hero {
-  min-height: calc(100vh - 68px);
+  min-height: min(720px, calc(86vh - 68px));
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -216,6 +296,7 @@ h1 {
   font-family: Georgia, "Times New Roman", serif;
   font-size: 25px;
   line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 
 .hero-meta,
@@ -352,41 +433,7 @@ h2 {
   max-width: 760px;
   margin-bottom: 28px;
   color: var(--muted);
-}
-
-.route-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.route-card {
-  min-height: 170px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 20px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
-  box-shadow: var(--shadow);
-}
-
-.route-card span {
-  color: var(--green);
-  font-size: 12px;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.route-card strong {
-  color: var(--ink);
-  font-size: 24px;
-  line-height: 1.15;
-}
-
-.route-card:hover {
-  border-color: color-mix(in srgb, var(--green) 55%, var(--line));
+  overflow-wrap: anywhere;
 }
 
 .project-grid,
@@ -705,29 +752,178 @@ h2 {
 }
 
 .visited-map {
-  height: min(72vh, 720px);
+  height: min(70vh, 660px);
   min-height: 520px;
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid #2b302d;
   border-radius: 8px;
-  background: var(--panel);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0)),
+    #101311;
   box-shadow: var(--shadow);
 }
 
-.visited-map .leaflet-container,
-.visited-map {
-  font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+.visited-map-preview {
+  height: 420px;
+  min-height: 420px;
 }
 
-.leaflet-control-attribution {
-  color: #3f4740;
+.map-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    #101311;
+  background-size: 100% 18%, 12.5% 100%, auto;
+}
+
+.map-viewport::before {
+  content: "";
+  position: absolute;
+  inset: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.map-viewport::after {
+  content: "NIKO EDWARDS / VISITED PLACES";
+  position: absolute;
+  left: 30px;
+  bottom: 22px;
+  color: rgba(236, 241, 232, 0.58);
   font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0;
 }
 
-[data-theme="dark"] .leaflet-control-attribution {
-  color: #d4ddd0;
-  background: rgba(17, 21, 17, 0.82);
+.map-grid-lines {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 49.8%, rgba(255, 255, 255, 0.08) 50%, transparent 50.2%),
+    linear-gradient(transparent 49.8%, rgba(255, 255, 255, 0.08) 50%, transparent 50.2%);
+  pointer-events: none;
+}
+
+.map-land {
+  position: absolute;
+  display: block;
+  background: #3c433f;
+  border: 1px solid rgba(213, 221, 211, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  opacity: 0.95;
+}
+
+.greenland {
+  left: 28%;
+  top: 12%;
+  width: 12%;
+  height: 8%;
+  border-radius: 48% 52% 46% 54%;
+  transform: rotate(-10deg);
+}
+
+.north-america {
+  left: 8%;
+  top: 24%;
+  width: 26%;
+  height: 28%;
+  border-radius: 58% 34% 50% 42%;
+  clip-path: polygon(8% 36%, 22% 12%, 54% 2%, 88% 18%, 94% 48%, 70% 72%, 48% 68%, 36% 98%, 16% 78%);
+}
+
+.south-america {
+  left: 30%;
+  top: 53%;
+  width: 11%;
+  height: 29%;
+  border-radius: 55% 38% 58% 42%;
+  clip-path: polygon(32% 0, 70% 10%, 86% 35%, 62% 55%, 55% 100%, 24% 86%, 10% 42%);
+}
+
+.europe {
+  left: 47%;
+  top: 27%;
+  width: 13%;
+  height: 15%;
+  border-radius: 44% 56% 42% 58%;
+  clip-path: polygon(8% 42%, 30% 12%, 76% 4%, 98% 36%, 72% 68%, 34% 82%);
+}
+
+.africa {
+  left: 49%;
+  top: 42%;
+  width: 16%;
+  height: 31%;
+  border-radius: 52% 42% 58% 48%;
+  clip-path: polygon(36% 0, 78% 14%, 94% 46%, 62% 100%, 22% 82%, 8% 36%);
+}
+
+.asia {
+  left: 58%;
+  top: 25%;
+  width: 31%;
+  height: 34%;
+  border-radius: 42% 52% 44% 54%;
+  clip-path: polygon(4% 32%, 18% 8%, 52% 2%, 84% 16%, 98% 40%, 78% 62%, 62% 90%, 36% 70%, 10% 74%);
+}
+
+.australia {
+  left: 79%;
+  top: 62%;
+  width: 13%;
+  height: 12%;
+  border-radius: 52% 42% 48% 56%;
+  transform: rotate(6deg);
+}
+
+.antarctica {
+  left: 16%;
+  top: 86%;
+  width: 68%;
+  height: 7%;
+  border-radius: 55% 45% 40% 60%;
+  opacity: 0.55;
+}
+
+.map-pin {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #e8f5eb;
+  font-size: 12px;
+  font-weight: 900;
+  transform: translate(-8px, -8px);
+  white-space: nowrap;
+}
+
+.map-pin::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  display: block;
+  border: 2px solid #e8f5eb;
+  border-radius: 50%;
+  background: #22d47b;
+  box-shadow: 0 0 0 5px rgba(34, 212, 123, 0.16);
+}
+
+.map-pin span {
+  padding: 3px 7px;
+  border: 1px solid rgba(232, 245, 235, 0.16);
+  border-radius: 999px;
+  background: rgba(16, 19, 17, 0.78);
+}
+
+.hong-kong {
+  left: 74%;
+  top: 45%;
 }
 
 .site-footer {
@@ -814,8 +1010,7 @@ h2 {
 
   .project-grid,
   .repo-grid,
-  .article-grid,
-  .route-grid {
+  .article-grid {
     grid-template-columns: 1fr;
   }
 
@@ -884,6 +1079,7 @@ h2 {
 
   .hero-copy {
     font-size: 19px;
+    word-break: break-all;
   }
 
   .hero-meta,
@@ -913,10 +1109,6 @@ h2 {
 
   .section {
     padding-bottom: 72px;
-  }
-
-  .route-card {
-    min-height: 132px;
   }
 
   .visited-map {

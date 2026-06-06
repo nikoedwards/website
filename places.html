@@ -11,9 +11,7 @@
     <meta property="og:title" content="Places - Niko Edwards" />
     <meta property="og:description" content="Visited places map by Niko Edwards." />
     <meta property="og:type" content="website" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="styles.css" />
-    <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script defer src="script.js"></script>
   </head>
   <body data-page="places">
@@ -29,11 +27,12 @@
             <a href="#elsewhere" data-i18n="nav.elsewhere">Elsewhere</a>
           </nav>
           <div class="display-controls" aria-label="Display controls">
-            <button id="language-toggle" class="control-button" type="button" aria-label="Switch language">
-              EN
-            </button>
-            <button id="theme-toggle" class="control-button" type="button" aria-label="Switch theme">
-              Dark
+            <div class="language-switch" role="group" aria-label="Language">
+              <button class="language-option" type="button" data-locale-option="en">EN</button>
+              <button class="language-option" type="button" data-locale-option="zh">CN</button>
+            </div>
+            <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch theme">
+              <span class="theme-icon" aria-hidden="true"></span>
             </button>
           </div>
         </div>
@@ -52,7 +51,20 @@
       </section>
 
       <section class="section" aria-label="Visited places map">
-        <div id="visited-map" class="visited-map" aria-label="Visited places map"></div>
+        <div class="visited-map" aria-label="Static visited places map">
+          <div class="map-viewport">
+            <div class="map-grid-lines" aria-hidden="true"></div>
+            <span class="map-land greenland"></span>
+            <span class="map-land north-america"></span>
+            <span class="map-land south-america"></span>
+            <span class="map-land europe"></span>
+            <span class="map-land africa"></span>
+            <span class="map-land asia"></span>
+            <span class="map-land australia"></span>
+            <span class="map-land antarctica"></span>
+            <span class="map-pin hong-kong"><span>Hong Kong</span></span>
+          </div>
+        </div>
       </section>
     </main>
 
@@ -63,7 +75,7 @@
           Personal website maintained in public. Built with plain HTML, CSS, and JavaScript.
         </p>
       </div>
-      <nav id="social-links" class="footer-links" aria-label="Social links"></nav>
+      <nav id="social-links" class="footer-links" aria-label="Social links" data-social-links></nav>
     </footer>
   </body>
 </html>

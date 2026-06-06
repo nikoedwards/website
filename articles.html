@@ -27,11 +27,12 @@
             <a href="#elsewhere" data-i18n="nav.elsewhere">Elsewhere</a>
           </nav>
           <div class="display-controls" aria-label="Display controls">
-            <button id="language-toggle" class="control-button" type="button" aria-label="Switch language">
-              EN
-            </button>
-            <button id="theme-toggle" class="control-button" type="button" aria-label="Switch theme">
-              Dark
+            <div class="language-switch" role="group" aria-label="Language">
+              <button class="language-option" type="button" data-locale-option="en">EN</button>
+              <button class="language-option" type="button" data-locale-option="zh">CN</button>
+            </div>
+            <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch theme">
+              <span class="theme-icon" aria-hidden="true"></span>
             </button>
           </div>
         </div>
@@ -79,7 +80,7 @@
           Personal website maintained in public. Built with plain HTML, CSS, and JavaScript.
         </p>
       </div>
-      <nav id="social-links" class="footer-links" aria-label="Social links"></nav>
+      <nav id="social-links" class="footer-links" aria-label="Social links" data-social-links></nav>
     </footer>
   </body>
 </html>

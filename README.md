@@ -8,7 +8,7 @@ A minimal personal website for GitHub Pages.
 - GitHub repositories
 - GitHub public contribution graph
 - Notion article embed
-- Real world map with highlighted visited regions
+- Static CSS world map with highlighted visited places
 - Social links
 
 ## Edit Content
@@ -18,7 +18,6 @@ Most personal content lives in `script.js`:
 - `featuredProjects`
 - `notionUrl`
 - `notionEmbedUrl`
-- `visitedPlaces`
 - `socials`
 
 Main pages are split into static GitHub Pages routes:
@@ -32,9 +31,8 @@ The site is static and can be deployed directly from the repository root with Gi
 
 ## Places Map
 
-The places page uses Leaflet with OpenStreetMap tiles. Visited regions are configured in
-`siteConfig.visitedPlaces` in `script.js`; boundary data can be stored as GeoJSON files in
-`data/`. Hong Kong is currently highlighted via `data/hong-kong.geojson`.
+The places page uses a static HTML/CSS world map. Visited places are highlighted directly in
+the map markup and styles, without Leaflet, OpenStreetMap tiles, or zoom controls.
 
 ## GitHub Contribution Graph
 

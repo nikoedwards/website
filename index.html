@@ -30,11 +30,12 @@
             <a href="#elsewhere" data-i18n="nav.elsewhere">Elsewhere</a>
           </nav>
           <div class="display-controls" aria-label="Display controls">
-            <button id="language-toggle" class="control-button" type="button" aria-label="Switch language">
-              EN
-            </button>
-            <button id="theme-toggle" class="control-button" type="button" aria-label="Switch theme">
-              Dark
+            <div class="language-switch" role="group" aria-label="Language">
+              <button class="language-option" type="button" data-locale-option="en">EN</button>
+              <button class="language-option" type="button" data-locale-option="zh">CN</button>
+            </div>
+            <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch theme">
+              <span class="theme-icon" aria-hidden="true"></span>
             </button>
           </div>
         </div>
@@ -92,29 +93,91 @@
         </div>
       </div>
 
-      <section class="section route-overview" aria-labelledby="overview-title">
-        <div class="section-index" data-i18n="overview.index">00 / ROUTES</div>
+      <section class="section" aria-labelledby="home-projects-title">
+        <div class="section-index" data-i18n="projects.index">01 / VIBE CODING</div>
         <div class="section-head">
-          <h2 id="overview-title" data-i18n="overview.title">Choose a page</h2>
+          <h2 id="home-projects-title" data-i18n="projects.title">Vibe Coding projects</h2>
+          <a class="text-link" href="projects.html" data-i18n="home.viewProjects">View projects -></a>
         </div>
-        <div class="route-grid">
-          <a class="route-card" href="projects.html">
-            <span data-i18n="overview.projectsKicker">Vibe Coding</span>
-            <strong data-i18n="overview.projectsTitle">Projects</strong>
-          </a>
-          <a class="route-card" href="github.html">
-            <span data-i18n="overview.githubKicker">GitHub</span>
-            <strong data-i18n="overview.githubTitle">Repositories</strong>
-          </a>
-          <a class="route-card" href="articles.html">
-            <span data-i18n="overview.articlesKicker">Notion</span>
-            <strong data-i18n="overview.articlesTitle">Articles</strong>
-          </a>
-          <a class="route-card" href="places.html">
-            <span data-i18n="overview.placesKicker">World Map</span>
-            <strong data-i18n="overview.placesTitle">Places</strong>
-          </a>
+        <p class="section-copy" data-i18n="projects.copy">
+          A focused view of web projects and public code.
+        </p>
+        <div id="project-grid" class="project-grid"></div>
+      </section>
+
+      <section class="section" aria-labelledby="home-github-title">
+        <div class="section-index" data-i18n="github.index">02 / GITHUB</div>
+        <div class="section-head">
+          <h2 id="home-github-title" data-i18n="github.title">Repositories and contribution graph</h2>
+          <a class="text-link" href="github.html" data-i18n="home.viewGithub">View GitHub -></a>
         </div>
+        <p class="section-copy" data-i18n="github.copy">
+          Public GitHub profile details, recent repositories, and the public contribution snapshot live here.
+        </p>
+        <div class="repo-summary" aria-label="GitHub summary">
+          <div>
+            <span data-i18n="github.publicRepos">Public repos</span>
+            <strong id="repo-count">-</strong>
+          </div>
+          <div>
+            <span data-i18n="github.followers">Followers</span>
+            <strong id="follower-count">-</strong>
+          </div>
+          <div>
+            <span data-i18n="github.latestPush">Latest push</span>
+            <strong id="latest-push">-</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="home-articles-title">
+        <div class="section-index" data-i18n="articles.index">03 / ARTICLES</div>
+        <div class="section-head">
+          <h2 id="home-articles-title" data-i18n="articles.title">Notion journal</h2>
+          <a class="text-link" href="articles.html" data-i18n="home.viewArticles">View articles -></a>
+        </div>
+        <p class="section-copy" data-i18n="articles.copy">
+          Articles are maintained directly in Notion.
+        </p>
+        <div id="article-grid" class="article-grid">
+          <article class="article-card loading-card" data-i18n="articles.loading">Loading articles...</article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="home-places-title">
+        <div class="section-index" data-i18n="places.index">04 / PLACES</div>
+        <div class="section-head">
+          <h2 id="home-places-title" data-i18n="places.title">Places I've been</h2>
+          <a class="text-link" href="places.html" data-i18n="home.viewPlaces">View places -></a>
+        </div>
+        <p class="section-copy" data-i18n="places.copy">
+          A static world map with visited regions highlighted.
+        </p>
+        <div class="visited-map visited-map-preview" aria-label="Static visited places map">
+          <div class="map-viewport">
+            <div class="map-grid-lines" aria-hidden="true"></div>
+            <span class="map-land greenland"></span>
+            <span class="map-land north-america"></span>
+            <span class="map-land south-america"></span>
+            <span class="map-land europe"></span>
+            <span class="map-land africa"></span>
+            <span class="map-land asia"></span>
+            <span class="map-land australia"></span>
+            <span class="map-land antarctica"></span>
+            <span class="map-pin hong-kong"><span>Hong Kong</span></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section social-overview" aria-labelledby="home-social-title">
+        <div class="section-index" data-i18n="home.socialIndex">05 / ELSEWHERE</div>
+        <div class="section-head">
+          <h2 id="home-social-title" data-i18n="home.socialTitle">Elsewhere</h2>
+        </div>
+        <p class="section-copy" data-i18n="home.socialCopy">
+          A few public places where I keep code, notes, and contact details.
+        </p>
+        <nav class="home-social-links footer-links" aria-label="Social links" data-social-links></nav>
       </section>
     </main>
 
@@ -125,7 +188,7 @@
           Personal website maintained in public. Built with plain HTML, CSS, and JavaScript.
         </p>
       </div>
-      <nav id="social-links" class="footer-links" aria-label="Social links"></nav>
+      <nav id="social-links" class="footer-links" aria-label="Social links" data-social-links></nav>
     </footer>
   </body>
 </html>

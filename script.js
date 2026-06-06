@@ -7,10 +7,6 @@ const siteConfig = {
   notionEmbedUrl:
     "https://guttural-phlox-926.notion.site/ebd/62f4ab3b6325461fa526f9996ee53ac9?v=db711b6352bd4edca65d7a46660d917f",
   articleFeedUrl: "articles.json",
-  map: {
-    initialCenter: [20, 35],
-    initialZoom: 2,
-  },
   featuredProjects: [
     {
       title: "KickSonar",
@@ -41,14 +37,6 @@ const siteConfig = {
       stack: ["HTML", "CSS", "JavaScript"],
       repo: "https://github.com/nikoedwards/website",
       live: "https://nikoedwards.github.io/website/",
-    },
-  ],
-  visitedPlaces: [
-    {
-      key: "hong-kong",
-      center: [22.3193, 114.1694],
-      radiusMeters: 210000,
-      geojsonUrl: "data/hong-kong.geojson",
     },
   ],
   socials: [
@@ -118,17 +106,14 @@ const translations = {
     },
     ticker:
       "CURRENTLY / VIBE CODING / OPEN SOURCE / NOTION ARTICLES / GITHUB PAGES / SHIP IN PUBLIC /",
-    overview: {
-      index: "00 / ROUTES",
-      title: "选择一个页面",
-      projectsKicker: "Vibe Coding",
-      projectsTitle: "项目",
-      githubKicker: "GitHub",
-      githubTitle: "仓库与贡献",
-      articlesKicker: "Notion",
-      articlesTitle: "文章",
-      placesKicker: "World Map",
-      placesTitle: "足迹地图",
+    home: {
+      viewProjects: "查看项目 ->",
+      viewGithub: "查看 GitHub ->",
+      viewArticles: "查看文章 ->",
+      viewPlaces: "查看足迹 ->",
+      socialIndex: "05 / ELSEWHERE",
+      socialTitle: "社交与公开入口",
+      socialCopy: "一些公开入口，用来放代码、笔记和联系方式。",
     },
     projects: {
       index: "01 / VIBE CODING",
@@ -176,7 +161,7 @@ const translations = {
     places: {
       index: "04 / PLACES",
       title: "去过的地方",
-      copy: "一张真实世界地图，去过的区域会直接在地图上高亮。后续更新只需要追加地点数据。",
+      copy: "一张静态世界地图，只高亮我去过的地方。它不需要缩放，也不依赖第三方地图服务。",
     },
     footer: {
       copy: "一个维护在公开仓库里的个人网站。使用原生 HTML、CSS 和 JavaScript 构建。",
@@ -219,17 +204,14 @@ const translations = {
     },
     ticker:
       "CURRENTLY / VIBE CODING / OPEN SOURCE / NOTION ARTICLES / GITHUB PAGES / SHIP IN PUBLIC /",
-    overview: {
-      index: "00 / ROUTES",
-      title: "Choose a page",
-      projectsKicker: "Vibe Coding",
-      projectsTitle: "Projects",
-      githubKicker: "GitHub",
-      githubTitle: "Repositories",
-      articlesKicker: "Notion",
-      articlesTitle: "Articles",
-      placesKicker: "World Map",
-      placesTitle: "Places",
+    home: {
+      viewProjects: "View projects ->",
+      viewGithub: "View GitHub ->",
+      viewArticles: "View articles ->",
+      viewPlaces: "View places ->",
+      socialIndex: "05 / ELSEWHERE",
+      socialTitle: "Elsewhere",
+      socialCopy: "A few public places where I keep code, notes, and contact details.",
     },
     projects: {
       index: "01 / VIBE CODING",
@@ -277,7 +259,7 @@ const translations = {
     places: {
       index: "04 / PLACES",
       title: "Places I've been",
-      copy: "A real world map with visited regions highlighted directly on the map. Future updates only need new place data.",
+      copy: "A static world map that highlights places I have visited, without zoom controls or third-party map tiles.",
     },
     footer: {
       copy: "Personal website maintained in public. Built with plain HTML, CSS, and JavaScript.",
@@ -305,8 +287,6 @@ const state = {
   githubRepos: [],
   githubContributions: null,
   articles: null,
-  visitedMap: null,
-  visitedMapLoading: false,
 };
 
 function pageName() {
@@ -362,12 +342,11 @@ function applyTheme() {
   document.documentElement.dataset.theme = state.theme;
   const button = byId("theme-toggle");
   if (!button) return;
-  const nextMode = state.theme === "dark" ? "light" : "dark";
-  button.textContent = t(`controls.${nextMode}`);
   button.setAttribute(
     "aria-label",
     state.theme === "dark" ? t("controls.themeLightLabel") : t("controls.themeDarkLabel"),
   );
+  button.setAttribute("title", button.getAttribute("aria-label"));
 }
 
 function applyActiveNavigation() {
@@ -392,11 +371,12 @@ function applyLanguage() {
     element.textContent = t(element.dataset.i18n);
   });
 
-  const languageToggle = byId("language-toggle");
-  if (languageToggle) {
-    languageToggle.textContent = t("controls.language");
-    languageToggle.setAttribute("aria-label", t("controls.languageLabel"));
-  }
+  document.querySelectorAll("[data-locale-option]").forEach((button) => {
+    const isActive = button.dataset.localeOption === state.locale;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+    button.setAttribute("aria-label", button.dataset.localeOption === "zh" ? "Switch to Chinese" : "Switch to English");
+  });
 
   const tickerLine = byId("ticker-line");
   if (tickerLine) tickerLine.textContent = `${t("ticker")} ${t("ticker")}`;
@@ -511,15 +491,15 @@ async function loadArticleFeed() {
 }
 
 function renderSocials() {
-  const container = byId("social-links");
-  if (!container) return;
-  container.innerHTML = "";
+  document.querySelectorAll("[data-social-links], #social-links").forEach((container) => {
+    container.innerHTML = "";
 
-  siteConfig.socials
-    .filter((item) => item.url)
-    .forEach((item) => {
-      container.append(createCardLink(item.label, item.url));
-    });
+    siteConfig.socials
+      .filter((item) => item.url)
+      .forEach((item) => {
+        container.append(createCardLink(item.label, item.url));
+      });
+  });
 }
 
 function createRepoCard(repo) {
@@ -768,76 +748,10 @@ async function loadGitHub() {
   }
 }
 
-function mapHighlightStyle() {
-  const styles = getComputedStyle(document.documentElement);
-  const green = styles.getPropertyValue("--green").trim() || "#1f6f4a";
-  return {
-    color: green,
-    weight: 2,
-    opacity: 0.95,
-    fillColor: green,
-    fillOpacity: 0.4,
-  };
-}
-
-async function renderVisitedPlaces() {
-  const container = byId("visited-map");
-  if (!container || !window.L || state.visitedMap || state.visitedMapLoading) return;
-  state.visitedMapLoading = true;
-
-  const map = L.map(container, {
-    center: siteConfig.map.initialCenter,
-    zoom: siteConfig.map.initialZoom,
-    minZoom: 2,
-    maxZoom: 9,
-    zoomSnap: 0.25,
-    worldCopyJump: true,
-    preferCanvas: true,
+document.querySelectorAll("[data-locale-option]").forEach((button) => {
+  button.addEventListener("click", () => {
+    setLocale(button.dataset.localeOption);
   });
-
-  state.visitedMap = map;
-
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(map);
-
-  const highlightGroup = L.featureGroup().addTo(map);
-
-  await Promise.all(
-    siteConfig.visitedPlaces.map(async (place) => {
-      const style = mapHighlightStyle();
-      L.circle(place.center, {
-        radius: place.radiusMeters || 150000,
-        interactive: false,
-        ...style,
-        weight: 1.5,
-        fillOpacity: 0.22,
-      }).addTo(highlightGroup);
-
-      if (!place.geojsonUrl) return;
-
-      try {
-        const response = await fetch(place.geojsonUrl);
-        if (!response.ok) throw new Error("GeoJSON unavailable");
-        const geojson = await response.json();
-        L.geoJSON(geojson, {
-          interactive: false,
-          style,
-        }).addTo(highlightGroup);
-      } catch (error) {
-        // The circle remains as a visible fallback if the boundary file cannot be fetched.
-      }
-    }),
-  );
-
-  map.setView(siteConfig.map.initialCenter, siteConfig.map.initialZoom);
-  window.setTimeout(() => map.invalidateSize(), 100);
-  state.visitedMapLoading = false;
-}
-
-byId("language-toggle")?.addEventListener("click", () => {
-  setLocale(state.locale === "zh" ? "en" : "zh");
 });
 
 byId("theme-toggle")?.addEventListener("click", () => {
@@ -852,4 +766,3 @@ renderSocials();
 loadArticleFeed();
 loadGitHub();
 loadContributions();
-renderVisitedPlaces();
