@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Articles - Niko Edwards</title>
+    <meta
+      name="description"
+      content="Niko Edwards personal website for Vibe Coding projects, GitHub repositories, Notion articles, and places visited."
+    />
+    <meta property="og:title" content="Articles - Niko Edwards" />
+    <meta property="og:description" content="Notion article embed by Niko Edwards." />
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body data-page="articles">
+    <header class="site-header" aria-label="Primary">
+      <div class="site-header-inner">
+        <a class="brand" href="index.html">Niko Edwards</a>
+        <div class="header-cluster">
+          <nav class="nav-links" aria-label="Site navigation">
+            <a href="projects.html" data-nav="projects" data-i18n="nav.projects">Projects</a>
+            <a href="github.html" data-nav="github" data-i18n="nav.github">GitHub</a>
+            <a href="articles.html" data-nav="articles" data-i18n="nav.articles">Articles</a>
+            <a href="places.html" data-nav="places" data-i18n="nav.places">Places</a>
+            <a href="#elsewhere" data-i18n="nav.elsewhere">Elsewhere</a>
+          </nav>
+          <div class="display-controls" aria-label="Display controls">
+            <button id="language-toggle" class="control-button" type="button" aria-label="Switch language">
+              EN
+            </button>
+            <button id="theme-toggle" class="control-button" type="button" aria-label="Switch theme">
+              Dark
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-main">
+      <section class="page-hero" aria-labelledby="articles-title">
+        <div class="section-index" data-i18n="articles.index">03 / ARTICLES</div>
+        <div class="section-head">
+          <h1 id="articles-title" data-i18n="articles.title">Notion journal</h1>
+          <a id="notion-link" class="text-link" href="#" target="_blank" rel="noreferrer" data-i18n="articles.open">
+            Open Notion ->
+          </a>
+        </div>
+        <p class="section-copy" data-i18n="articles.copy">
+          Articles are maintained directly in Notion, and this site embeds the same public page.
+        </p>
+      </section>
+
+      <section class="section" aria-label="Notion article embed">
+        <div class="notion-embed-shell">
+          <iframe
+            id="notion-frame"
+            class="notion-frame"
+            title="Niko Edwards Notion articles"
+            loading="lazy"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <details class="article-fallback">
+          <summary data-i18n="articles.fallbackTitle">Synced article index</summary>
+          <div id="article-grid" class="article-grid">
+            <article class="article-card loading-card" data-i18n="articles.loading">Loading articles...</article>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <footer id="elsewhere" class="site-footer">
+      <div>
+        <strong>Niko Edwards</strong>
+        <p data-i18n="footer.copy">
+          Personal website maintained in public. Built with plain HTML, CSS, and JavaScript.
+        </p>
+      </div>
+      <nav id="social-links" class="footer-links" aria-label="Social links"></nav>
+    </footer>
+  </body>
+</html>

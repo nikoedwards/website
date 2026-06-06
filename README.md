@@ -4,11 +4,11 @@ A minimal personal website for GitHub Pages.
 
 ## Sections
 
-- Web Coding projects
+- Vibe Coding projects
 - GitHub repositories
 - GitHub public contribution graph
 - Notion article embed
-- Places visited map
+- Real world map with highlighted visited regions
 - Social links
 
 ## Edit Content
@@ -21,7 +21,20 @@ Most personal content lives in `script.js`:
 - `visitedPlaces`
 - `socials`
 
+Main pages are split into static GitHub Pages routes:
+
+- `projects.html`
+- `github.html`
+- `articles.html`
+- `places.html`
+
 The site is static and can be deployed directly from the repository root with GitHub Pages.
+
+## Places Map
+
+The places page uses Leaflet with OpenStreetMap tiles. Visited regions are configured in
+`siteConfig.visitedPlaces` in `script.js`; boundary data can be stored as GeoJSON files in
+`data/`. Hong Kong is currently highlighted via `data/hong-kong.geojson`.
 
 ## GitHub Contribution Graph
 

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GitHub - Niko Edwards</title>
+    <meta
+      name="description"
+      content="Niko Edwards personal website for Vibe Coding projects, GitHub repositories, Notion articles, and places visited."
+    />
+    <meta property="og:title" content="GitHub - Niko Edwards" />
+    <meta
+      property="og:description"
+      content="Public GitHub repositories and contribution graph for Niko Edwards."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body data-page="github">
+    <header class="site-header" aria-label="Primary">
+      <div class="site-header-inner">
+        <a class="brand" href="index.html">Niko Edwards</a>
+        <div class="header-cluster">
+          <nav class="nav-links" aria-label="Site navigation">
+            <a href="projects.html" data-nav="projects" data-i18n="nav.projects">Projects</a>
+            <a href="github.html" data-nav="github" data-i18n="nav.github">GitHub</a>
+            <a href="articles.html" data-nav="articles" data-i18n="nav.articles">Articles</a>
+            <a href="places.html" data-nav="places" data-i18n="nav.places">Places</a>
+            <a href="#elsewhere" data-i18n="nav.elsewhere">Elsewhere</a>
+          </nav>
+          <div class="display-controls" aria-label="Display controls">
+            <button id="language-toggle" class="control-button" type="button" aria-label="Switch language">
+              EN
+            </button>
+            <button id="theme-toggle" class="control-button" type="button" aria-label="Switch theme">
+              Dark
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-main">
+      <section class="page-hero github-section" aria-labelledby="github-title">
+        <div class="section-index" data-i18n="github.index">02 / GITHUB</div>
+        <div class="section-head">
+          <h1 id="github-title" data-i18n="github.title">Repositories and contribution graph</h1>
+          <a class="text-link" href="https://github.com/nikoedwards?tab=repositories" target="_blank" rel="noreferrer" data-i18n="github.repositories">
+            Repositories ->
+          </a>
+        </div>
+        <p class="section-copy" data-i18n="github.copy">
+          Public GitHub profile details, recent repositories, and the public contribution snapshot live here.
+        </p>
+      </section>
+
+      <section class="section" aria-label="GitHub contribution graph">
+        <figure class="contribution-frame">
+          <img src="contributions.svg" alt="Public GitHub contribution graph for @nikoedwards" />
+          <figcaption data-i18n="github.contributionCaption">
+            Public GitHub contribution snapshot generated from GitHub for @nikoedwards
+          </figcaption>
+        </figure>
+
+        <div class="repo-summary" aria-label="GitHub summary">
+          <div>
+            <span data-i18n="github.publicRepos">Public repos</span>
+            <strong id="repo-count">-</strong>
+          </div>
+          <div>
+            <span data-i18n="github.followers">Followers</span>
+            <strong id="follower-count">-</strong>
+          </div>
+          <div>
+            <span data-i18n="github.latestPush">Latest push</span>
+            <strong id="latest-push">-</strong>
+          </div>
+        </div>
+
+        <div id="repo-grid" class="repo-grid">
+          <article class="repo-card loading-card" data-i18n="github.loading">Loading GitHub repositories...</article>
+        </div>
+      </section>
+    </main>
+
+    <footer id="elsewhere" class="site-footer">
+      <div>
+        <strong>Niko Edwards</strong>
+        <p data-i18n="footer.copy">
+          Personal website maintained in public. Built with plain HTML, CSS, and JavaScript.
+        </p>
+      </div>
+      <nav id="social-links" class="footer-links" aria-label="Social links"></nav>
+    </footer>
+  </body>
+</html>

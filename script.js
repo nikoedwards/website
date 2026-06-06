@@ -7,12 +7,16 @@ const siteConfig = {
   notionEmbedUrl:
     "https://guttural-phlox-926.notion.site/ebd/62f4ab3b6325461fa526f9996ee53ac9?v=db711b6352bd4edca65d7a46660d917f",
   articleFeedUrl: "articles.json",
+  map: {
+    initialCenter: [20, 35],
+    initialZoom: 2,
+  },
   featuredProjects: [
     {
       title: "Personal Website",
       summary: {
-        zh: "一个部署在 GitHub Pages 上的个人网站，用来展示 Web Coding、GitHub 项目和 Notion 文章。",
-        en: "A GitHub Pages personal website for Web Coding projects, GitHub work, and Notion writing.",
+        zh: "一个部署在 GitHub Pages 上的个人网站，用来展示 Vibe Coding、GitHub 项目和 Notion 文章。",
+        en: "A GitHub Pages personal website for Vibe Coding projects, GitHub work, and Notion writing.",
       },
       stack: ["HTML", "CSS", "JavaScript"],
       repo: "https://github.com/nikoedwards/website",
@@ -21,11 +25,10 @@ const siteConfig = {
   ],
   visitedPlaces: [
     {
-      name: { zh: "香港", en: "Hong Kong" },
-      region: { zh: "中国", en: "China" },
-      lat: 22.3193,
-      lon: 114.1694,
-      note: { zh: "去过", en: "Visited" },
+      key: "hong-kong",
+      center: [22.3193, 114.1694],
+      radiusMeters: 210000,
+      geojsonUrl: "data/hong-kong.geojson",
     },
   ],
   socials: [
@@ -34,12 +37,35 @@ const siteConfig = {
   ],
 };
 
+const pageTitles = {
+  home: {
+    zh: "Niko Edwards - 个人网站",
+    en: "Niko Edwards - Personal Website",
+  },
+  projects: {
+    zh: "Vibe Coding 项目 - Niko Edwards",
+    en: "Vibe Coding Projects - Niko Edwards",
+  },
+  github: {
+    zh: "GitHub - Niko Edwards",
+    en: "GitHub - Niko Edwards",
+  },
+  articles: {
+    zh: "文章 - Niko Edwards",
+    en: "Articles - Niko Edwards",
+  },
+  places: {
+    zh: "足迹 - Niko Edwards",
+    en: "Places - Niko Edwards",
+  },
+};
+
 const translations = {
   zh: {
     document: {
       title: "Niko Edwards - 个人网站",
       description:
-        "Niko Edwards 的个人网站，展示 Web Coding 项目、GitHub 仓库、Contribution 面板、Notion 文章和去过的地方。",
+        "Niko Edwards 的个人网站，展示 Vibe Coding 项目、GitHub 仓库、Contribution 面板、Notion 文章和去过的地方。",
     },
     nav: {
       projects: "项目",
@@ -57,13 +83,13 @@ const translations = {
       themeLightLabel: "切换到亮色模式",
     },
     hero: {
-      kicker: "Web Coding / GitHub Pages / Notion",
-      copy: "一个简洁的个人主页，用来收拢我在 Web Coding、GitHub 项目和 Notion 写作里的公开轨迹。",
+      kicker: "Vibe Coding / GitHub Pages / Notion",
+      copy: "一个简洁的个人主页，用来收拢我在 Vibe Coding、GitHub 项目和 Notion 写作里的公开轨迹。",
       profileFallback: "从 GitHub 公开构建中。",
       meta: {
         githubLabel: "GitHub",
         focusLabel: "方向",
-        focusValue: "Web Coding",
+        focusValue: "Vibe Coding",
         writingLabel: "写作",
         writingValue: "Notion 笔记",
         deployLabel: "部署",
@@ -71,47 +97,61 @@ const translations = {
       },
     },
     ticker:
-      "CURRENTLY · WEB CODING · OPEN SOURCE · NOTION ARTICLES · GITHUB PAGES · SHIP IN PUBLIC ·",
+      "CURRENTLY / VIBE CODING / OPEN SOURCE / NOTION ARTICLES / GITHUB PAGES / SHIP IN PUBLIC /",
+    overview: {
+      index: "00 / ROUTES",
+      title: "选择一个页面",
+      projectsKicker: "Vibe Coding",
+      projectsTitle: "项目",
+      githubKicker: "GitHub",
+      githubTitle: "仓库与贡献",
+      articlesKicker: "Notion",
+      articlesTitle: "文章",
+      placesKicker: "World Map",
+      placesTitle: "足迹地图",
+    },
     projects: {
-      index: "§ 01 · WEB CODING",
-      title: "Web Coding 项目",
-      allGithub: "查看 GitHub →",
-      live: "在线预览 →",
-      repo: "代码仓库 →",
+      index: "01 / VIBE CODING",
+      title: "Vibe Coding 项目",
+      copy: "这里放我做过的 Web 项目和可以公开展示的代码。后续新增项目时，只需要在配置里追加一条记录。",
+      allGithub: "查看 GitHub ->",
+      live: "在线预览 ->",
+      repo: "代码仓库 ->",
     },
     github: {
-      index: "§ 02 · GITHUB",
+      index: "02 / GITHUB",
       title: "仓库与 Contribution 面板",
-      repositories: "全部仓库 →",
+      copy: "这里同步展示我的公开 GitHub 信息、最新仓库和公开 Contribution 快照。",
+      repositories: "全部仓库 ->",
       contributionCaption: "来自 GitHub 官方公开数据的 Contribution 快照：@nikoedwards",
       publicRepos: "公开仓库",
       followers: "关注者",
       latestPush: "最近推送",
       loading: "正在加载 GitHub 仓库...",
       unavailable: "GitHub 数据暂时不可用。",
-      openGithub: "打开 GitHub →",
+      openGithub: "打开 GitHub ->",
       noRepos: "还没有公开仓库。",
       noDescription: "还没有公开描述。",
       stars: "stars",
       updated: "更新于",
     },
     articles: {
-      index: "§ 03 · ARTICLES",
+      index: "03 / ARTICLES",
       title: "Notion 文章",
-      open: "打开 Notion →",
-      copy: "文章直接维护在 Notion，网站嵌入同一个公开页面。技术笔记、项目复盘和长期主题都会收在这个板块里。",
+      open: "打开 Notion ->",
+      copy: "文章直接维护在 Notion，网站嵌入同一个公开页面。技术笔记、项目复盘和长期主题都会放在这个板块里。",
       fallbackTitle: "同步索引备份",
       loading: "正在加载文章...",
       fallbackName: "Notion 文章",
       fallbackDate: "实时源",
-      fallbackSummary: "文章源头维护在 Notion。若嵌入不可用，可以通过这里打开同步索引或 Notion 原页面。",
-      read: "阅读 →",
+      fallbackSummary:
+        "文章源头维护在 Notion。若嵌入不可用，可以通过这里打开同步索引或 Notion 原页面。",
+      read: "阅读 ->",
     },
     places: {
-      index: "§ 04 · PLACES",
+      index: "04 / PLACES",
       title: "去过的地方",
-      copy: "一张轻量的世界地图，记录我去过的城市。地图由数据驱动，后续新增地点只需要更新配置。",
-      count: "{count} 个地点",
+      copy: "一张真实世界地图，去过的区域会直接在地图上高亮。后续更新只需要追加地点数据。",
     },
     footer: {
       copy: "一个维护在公开仓库里的个人网站。使用原生 HTML、CSS 和 JavaScript 构建。",
@@ -121,7 +161,7 @@ const translations = {
     document: {
       title: "Niko Edwards - Personal Website",
       description:
-        "Niko Edwards' personal website for Web Coding projects, GitHub repositories, contributions, Notion articles, and places visited.",
+        "Niko Edwards' personal website for Vibe Coding projects, GitHub repositories, contributions, Notion articles, and places visited.",
     },
     nav: {
       projects: "Projects",
@@ -139,13 +179,13 @@ const translations = {
       themeLightLabel: "Switch to light mode",
     },
     hero: {
-      kicker: "Web Coding / GitHub Pages / Notion",
-      copy: "A simple personal site for collecting my public trail across Web Coding, GitHub projects, and Notion writing.",
+      kicker: "Vibe Coding / GitHub Pages / Notion",
+      copy: "A simple personal site for collecting my public trail across Vibe Coding, GitHub projects, and Notion writing.",
       profileFallback: "Building in public from GitHub.",
       meta: {
         githubLabel: "GitHub",
         focusLabel: "Focus",
-        focusValue: "Web Coding",
+        focusValue: "Vibe Coding",
         writingLabel: "Writing",
         writingValue: "Notion Notes",
         deployLabel: "Deploy",
@@ -153,34 +193,48 @@ const translations = {
       },
     },
     ticker:
-      "CURRENTLY · WEB CODING · OPEN SOURCE · NOTION ARTICLES · GITHUB PAGES · SHIP IN PUBLIC ·",
+      "CURRENTLY / VIBE CODING / OPEN SOURCE / NOTION ARTICLES / GITHUB PAGES / SHIP IN PUBLIC /",
+    overview: {
+      index: "00 / ROUTES",
+      title: "Choose a page",
+      projectsKicker: "Vibe Coding",
+      projectsTitle: "Projects",
+      githubKicker: "GitHub",
+      githubTitle: "Repositories",
+      articlesKicker: "Notion",
+      articlesTitle: "Articles",
+      placesKicker: "World Map",
+      placesTitle: "Places",
+    },
     projects: {
-      index: "§ 01 · WEB CODING",
-      title: "Projects shipped on the web",
-      allGithub: "All GitHub →",
-      live: "Live →",
-      repo: "Repo →",
+      index: "01 / VIBE CODING",
+      title: "Vibe Coding projects",
+      copy: "A focused view of web projects and public code. Future projects can be added by extending the site config.",
+      allGithub: "All GitHub ->",
+      live: "Live ->",
+      repo: "Repo ->",
     },
     github: {
-      index: "§ 02 · GITHUB",
+      index: "02 / GITHUB",
       title: "Repositories and contribution graph",
-      repositories: "Repositories →",
+      copy: "Public GitHub profile details, recent repositories, and the public contribution snapshot live here.",
+      repositories: "Repositories ->",
       contributionCaption: "Public GitHub contribution snapshot generated from GitHub for @nikoedwards",
       publicRepos: "Public repos",
       followers: "Followers",
       latestPush: "Latest push",
       loading: "Loading GitHub repositories...",
       unavailable: "GitHub data is temporarily unavailable.",
-      openGithub: "Open GitHub →",
+      openGithub: "Open GitHub ->",
       noRepos: "No public repositories yet.",
       noDescription: "No public description yet.",
       stars: "stars",
       updated: "Updated",
     },
     articles: {
-      index: "§ 03 · ARTICLES",
+      index: "03 / ARTICLES",
       title: "Notion journal",
-      open: "Open Notion →",
+      open: "Open Notion ->",
       copy: "Articles are maintained directly in Notion, and this site embeds the same public page. Technical notes, project retrospectives, and long-running themes live here.",
       fallbackTitle: "Synced article index",
       loading: "Loading articles...",
@@ -188,13 +242,12 @@ const translations = {
       fallbackDate: "Live source",
       fallbackSummary:
         "Articles are maintained in Notion. If the embed is unavailable, this index and the original Notion page remain available.",
-      read: "Read →",
+      read: "Read ->",
     },
     places: {
-      index: "§ 04 · PLACES",
+      index: "04 / PLACES",
       title: "Places I've been",
-      copy: "A lightweight world map for places I have visited. It is data-driven, so future updates only need new entries in the config.",
-      count: "{count} place{plural}",
+      copy: "A real world map with visited regions highlighted directly on the map. Future updates only need new place data.",
     },
     footer: {
       copy: "Personal website maintained in public. Built with plain HTML, CSS, and JavaScript.",
@@ -212,7 +265,6 @@ const languageColors = {
   React: "#149eca",
 };
 
-const SVG_NS = "http://www.w3.org/2000/svg";
 const byId = (id) => document.getElementById(id);
 const state = {
   locale: localStorage.getItem("locale") || "zh",
@@ -222,7 +274,13 @@ const state = {
   githubProfile: null,
   githubRepos: [],
   articles: null,
+  visitedMap: null,
+  visitedMapLoading: false,
 };
+
+function pageName() {
+  return document.body.dataset.page || "home";
+}
 
 function t(key) {
   return key.split(".").reduce((value, part) => value?.[part], translations[state.locale]) || key;
@@ -281,23 +339,41 @@ function applyTheme() {
   );
 }
 
+function applyActiveNavigation() {
+  const currentPage = pageName();
+  document.querySelectorAll("[data-nav]").forEach((link) => {
+    if (link.dataset.nav === currentPage) {
+      link.setAttribute("aria-current", "page");
+    } else {
+      link.removeAttribute("aria-current");
+    }
+  });
+}
+
 function applyLanguage() {
   document.documentElement.lang = state.locale === "zh" ? "zh-CN" : "en";
-  document.title = t("document.title");
-  document.querySelector('meta[name="description"]')?.setAttribute("content", t("document.description"));
+  document.title = pageTitles[pageName()]?.[state.locale] || t("document.title");
+  document
+    .querySelector('meta[name="description"]')
+    ?.setAttribute("content", t("document.description"));
 
   document.querySelectorAll("[data-i18n]").forEach((element) => {
     element.textContent = t(element.dataset.i18n);
   });
 
-  byId("language-toggle").textContent = t("controls.language");
-  byId("language-toggle").setAttribute("aria-label", t("controls.languageLabel"));
-  byId("ticker-line").textContent = `${t("ticker")} ${t("ticker")}`;
+  const languageToggle = byId("language-toggle");
+  if (languageToggle) {
+    languageToggle.textContent = t("controls.language");
+    languageToggle.setAttribute("aria-label", t("controls.languageLabel"));
+  }
+
+  const tickerLine = byId("ticker-line");
+  if (tickerLine) tickerLine.textContent = `${t("ticker")} ${t("ticker")}`;
+
   applyTheme();
   renderProfileLine();
   renderProjects();
   renderArticleFallback();
-  renderVisitedPlaces();
   if (state.githubRepos.length) renderRepoGrid(state.githubRepos);
   if (state.githubProfile) renderGitHubProfile(state.githubProfile, state.githubRepos);
 }
@@ -322,6 +398,7 @@ function renderProfileLine() {
 
 function renderProjects() {
   const grid = byId("project-grid");
+  if (!grid) return;
   grid.innerHTML = "";
 
   siteConfig.featuredProjects.forEach((project) => {
@@ -376,8 +453,8 @@ function createArticleCard(article) {
 function renderNotionEmbed() {
   const link = byId("notion-link");
   const frame = byId("notion-frame");
-  link.href = siteConfig.notionUrl;
-  if (frame.src !== siteConfig.notionEmbedUrl) frame.src = siteConfig.notionEmbedUrl;
+  if (link) link.href = siteConfig.notionUrl;
+  if (frame && frame.src !== siteConfig.notionEmbedUrl) frame.src = siteConfig.notionEmbedUrl;
 }
 
 function renderArticleFallback() {
@@ -389,6 +466,7 @@ function renderArticleFallback() {
 }
 
 async function loadArticleFeed() {
+  if (!byId("article-grid")) return;
   try {
     const response = await fetch(`${siteConfig.articleFeedUrl}?v=${Date.now()}`);
     if (!response.ok) throw new Error("Article feed unavailable");
@@ -402,6 +480,7 @@ async function loadArticleFeed() {
 
 function renderSocials() {
   const container = byId("social-links");
+  if (!container) return;
   container.innerHTML = "";
 
   siteConfig.socials
@@ -448,6 +527,7 @@ function createRepoCard(repo) {
 
 function renderRepoGrid(repos) {
   const grid = byId("repo-grid");
+  if (!grid) return;
   grid.innerHTML = "";
 
   if (!repos.length) {
@@ -461,14 +541,42 @@ function renderRepoGrid(repos) {
 }
 
 function renderGitHubProfile(profile, repos) {
-  byId("avatar").src = profile.avatar_url;
-  byId("repo-count").textContent = profile.public_repos;
-  byId("follower-count").textContent = profile.followers;
-  byId("latest-push").textContent = repos[0] ? formatDate(repos[0].pushed_at) : "N/A";
+  const avatar = byId("avatar");
+  if (avatar) avatar.src = profile.avatar_url;
+
+  const repoCount = byId("repo-count");
+  if (repoCount) repoCount.textContent = profile.public_repos;
+
+  const followerCount = byId("follower-count");
+  if (followerCount) followerCount.textContent = profile.followers;
+
+  const latestPush = byId("latest-push");
+  if (latestPush) latestPush.textContent = repos[0] ? formatDate(repos[0].pushed_at) : "N/A";
+
   renderProfileLine();
 }
 
+function renderGitHubUnavailable() {
+  const grid = byId("repo-grid");
+  if (!grid) return;
+  grid.innerHTML = "";
+
+  const card = document.createElement("article");
+  card.className = "repo-card loading-card";
+  card.append(createTextElement("p", t("github.unavailable")));
+  const links = document.createElement("div");
+  links.className = "card-links";
+  links.append(createCardLink(t("github.openGithub"), `https://github.com/${siteConfig.githubUser}`));
+  card.append(links);
+  grid.append(card);
+}
+
 async function loadGitHub() {
+  const needsGitHub = ["avatar", "repo-grid", "repo-count", "follower-count", "latest-push"].some((id) =>
+    byId(id),
+  );
+  if (!needsGitHub) return;
+
   const user = siteConfig.githubUser;
   const profileUrl = `https://api.github.com/users/${user}`;
   const reposUrl = `https://api.github.com/users/${user}/repos?sort=pushed&per_page=100`;
@@ -489,92 +597,91 @@ async function loadGitHub() {
     renderGitHubProfile(profile, publicRepos);
     renderRepoGrid(publicRepos);
   } catch (error) {
-    const grid = byId("repo-grid");
-    grid.innerHTML = "";
-    const card = document.createElement("article");
-    card.className = "repo-card loading-card";
-    card.append(createTextElement("p", t("github.unavailable")));
-    const links = document.createElement("div");
-    links.className = "card-links";
-    links.append(createCardLink(t("github.openGithub"), `https://github.com/${user}`));
-    card.append(links);
-    grid.append(card);
+    renderGitHubUnavailable();
   }
 }
 
-function projectPlace(place) {
+function mapHighlightStyle() {
+  const styles = getComputedStyle(document.documentElement);
+  const green = styles.getPropertyValue("--green").trim() || "#1f6f4a";
   return {
-    x: ((place.lon + 180) / 360) * 1000,
-    y: ((90 - place.lat) / 180) * 520,
+    color: green,
+    weight: 2,
+    opacity: 0.95,
+    fillColor: green,
+    fillOpacity: 0.4,
   };
 }
 
-function renderVisitedPlaces() {
-  const markerLayer = byId("visited-markers");
-  const list = byId("visited-list");
-  markerLayer.innerHTML = "";
-  list.innerHTML = "";
+async function renderVisitedPlaces() {
+  const container = byId("visited-map");
+  if (!container || !window.L || state.visitedMap || state.visitedMapLoading) return;
+  state.visitedMapLoading = true;
 
-  siteConfig.visitedPlaces.forEach((place) => {
-    const { x, y } = projectPlace(place);
-    const name = localize(place.name);
-    const region = localize(place.region);
-    const note = localize(place.note);
-    const labelLeft = x > 820;
-    const group = document.createElementNS(SVG_NS, "g");
-    group.setAttribute("class", "visited-marker");
-
-    const title = document.createElementNS(SVG_NS, "title");
-    title.textContent = `${name}, ${region}`;
-    group.append(title);
-
-    const halo = document.createElementNS(SVG_NS, "circle");
-    halo.setAttribute("class", "pin-halo");
-    halo.setAttribute("cx", x);
-    halo.setAttribute("cy", y);
-    halo.setAttribute("r", 18);
-    group.append(halo);
-
-    const pin = document.createElementNS(SVG_NS, "circle");
-    pin.setAttribute("class", "pin");
-    pin.setAttribute("cx", x);
-    pin.setAttribute("cy", y);
-    pin.setAttribute("r", 7);
-    group.append(pin);
-
-    const label = document.createElementNS(SVG_NS, "text");
-    label.setAttribute("x", labelLeft ? x - 16 : x + 16);
-    label.setAttribute("y", y - 12);
-    label.setAttribute("text-anchor", labelLeft ? "end" : "start");
-    label.textContent = name;
-    group.append(label);
-    markerLayer.append(group);
-
-    const item = document.createElement("div");
-    item.className = "visited-item";
-    item.append(createTextElement("strong", name));
-    item.append(createTextElement("span", `${region} · ${note}`));
-    list.append(item);
+  const map = L.map(container, {
+    center: siteConfig.map.initialCenter,
+    zoom: siteConfig.map.initialZoom,
+    minZoom: 2,
+    maxZoom: 9,
+    zoomSnap: 0.25,
+    worldCopyJump: true,
+    preferCanvas: true,
   });
 
-  const count = siteConfig.visitedPlaces.length;
-  byId("visited-count").textContent =
-    state.locale === "zh"
-      ? t("places.count").replace("{count}", count)
-      : t("places.count").replace("{count}", count).replace("{plural}", count === 1 ? "" : "s");
+  state.visitedMap = map;
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
+
+  const highlightGroup = L.featureGroup().addTo(map);
+
+  await Promise.all(
+    siteConfig.visitedPlaces.map(async (place) => {
+      const style = mapHighlightStyle();
+      L.circle(place.center, {
+        radius: place.radiusMeters || 150000,
+        interactive: false,
+        ...style,
+        weight: 1.5,
+        fillOpacity: 0.22,
+      }).addTo(highlightGroup);
+
+      if (!place.geojsonUrl) return;
+
+      try {
+        const response = await fetch(place.geojsonUrl);
+        if (!response.ok) throw new Error("GeoJSON unavailable");
+        const geojson = await response.json();
+        L.geoJSON(geojson, {
+          interactive: false,
+          style,
+        }).addTo(highlightGroup);
+      } catch (error) {
+        // The circle remains as a visible fallback if the boundary file cannot be fetched.
+      }
+    }),
+  );
+
+  map.setView(siteConfig.map.initialCenter, siteConfig.map.initialZoom);
+  window.setTimeout(() => map.invalidateSize(), 100);
+  state.visitedMapLoading = false;
 }
 
-byId("language-toggle").addEventListener("click", () => {
+byId("language-toggle")?.addEventListener("click", () => {
   setLocale(state.locale === "zh" ? "en" : "zh");
 });
 
-byId("theme-toggle").addEventListener("click", () => {
+byId("theme-toggle")?.addEventListener("click", () => {
   setTheme(state.theme === "dark" ? "light" : "dark");
 });
 
 applyTheme();
+applyActiveNavigation();
 applyLanguage();
 renderNotionEmbed();
 renderSocials();
 loadArticleFeed();
 loadGitHub();
+renderVisitedPlaces();

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vibe Coding Projects - Niko Edwards</title>
+    <meta
+      name="description"
+      content="Niko Edwards personal website for Vibe Coding projects, GitHub repositories, Notion articles, and places visited."
+    />
+    <meta property="og:title" content="Vibe Coding Projects - Niko Edwards" />
+    <meta
+      property="og:description"
+      content="Vibe Coding projects and public code by Niko Edwards."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body data-page="projects">
+    <header class="site-header" aria-label="Primary">
+      <div class="site-header-inner">
+        <a class="brand" href="index.html">Niko Edwards</a>
+        <div class="header-cluster">
+          <nav class="nav-links" aria-label="Site navigation">
+            <a href="projects.html" data-nav="projects" data-i18n="nav.projects">Projects</a>
+            <a href="github.html" data-nav="github" data-i18n="nav.github">GitHub</a>
+            <a href="articles.html" data-nav="articles" data-i18n="nav.articles">Articles</a>
+            <a href="places.html" data-nav="places" data-i18n="nav.places">Places</a>
+            <a href="#elsewhere" data-i18n="nav.elsewhere">Elsewhere</a>
+          </nav>
+          <div class="display-controls" aria-label="Display controls">
+            <button id="language-toggle" class="control-button" type="button" aria-label="Switch language">
+              EN
+            </button>
+            <button id="theme-toggle" class="control-button" type="button" aria-label="Switch theme">
+              Dark
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-main">
+      <section class="page-hero" aria-labelledby="projects-title">
+        <div class="section-index" data-i18n="projects.index">01 / VIBE CODING</div>
+        <div class="section-head">
+          <h1 id="projects-title" data-i18n="projects.title">Vibe Coding projects</h1>
+          <a class="text-link" href="https://github.com/nikoedwards" target="_blank" rel="noreferrer" data-i18n="projects.allGithub">
+            All GitHub ->
+          </a>
+        </div>
+        <p class="section-copy" data-i18n="projects.copy">
+          A focused view of web projects and public code. Future projects can be added by extending the site
+          config.
+        </p>
+      </section>
+
+      <section class="section" aria-label="Project list">
+        <div id="project-grid" class="project-grid"></div>
+      </section>
+    </main>
+
+    <footer id="elsewhere" class="site-footer">
+      <div>
+        <strong>Niko Edwards</strong>
+        <p data-i18n="footer.copy">
+          Personal website maintained in public. Built with plain HTML, CSS, and JavaScript.
+        </p>
+      </div>
+      <nav id="social-links" class="footer-links" aria-label="Social links"></nav>
+    </footer>
+  </body>
+</html>

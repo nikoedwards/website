@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Places - Niko Edwards</title>
+    <meta
+      name="description"
+      content="Niko Edwards personal website for Vibe Coding projects, GitHub repositories, Notion articles, and places visited."
+    />
+    <meta property="og:title" content="Places - Niko Edwards" />
+    <meta property="og:description" content="Visited places map by Niko Edwards." />
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script defer src="script.js"></script>
+  </head>
+  <body data-page="places">
+    <header class="site-header" aria-label="Primary">
+      <div class="site-header-inner">
+        <a class="brand" href="index.html">Niko Edwards</a>
+        <div class="header-cluster">
+          <nav class="nav-links" aria-label="Site navigation">
+            <a href="projects.html" data-nav="projects" data-i18n="nav.projects">Projects</a>
+            <a href="github.html" data-nav="github" data-i18n="nav.github">GitHub</a>
+            <a href="articles.html" data-nav="articles" data-i18n="nav.articles">Articles</a>
+            <a href="places.html" data-nav="places" data-i18n="nav.places">Places</a>
+            <a href="#elsewhere" data-i18n="nav.elsewhere">Elsewhere</a>
+          </nav>
+          <div class="display-controls" aria-label="Display controls">
+            <button id="language-toggle" class="control-button" type="button" aria-label="Switch language">
+              EN
+            </button>
+            <button id="theme-toggle" class="control-button" type="button" aria-label="Switch theme">
+              Dark
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-main">
+      <section class="page-hero places-section" aria-labelledby="places-title">
+        <div class="section-index" data-i18n="places.index">04 / PLACES</div>
+        <div class="section-head">
+          <h1 id="places-title" data-i18n="places.title">Places I've been</h1>
+        </div>
+        <p class="section-copy" data-i18n="places.copy">
+          A real world map with visited regions highlighted directly on the map.
+        </p>
+      </section>
+
+      <section class="section" aria-label="Visited places map">
+        <div id="visited-map" class="visited-map" aria-label="Visited places map"></div>
+      </section>
+    </main>
+
+    <footer id="elsewhere" class="site-footer">
+      <div>
+        <strong>Niko Edwards</strong>
+        <p data-i18n="footer.copy">
+          Personal website maintained in public. Built with plain HTML, CSS, and JavaScript.
+        </p>
+      </div>
+      <nav id="social-links" class="footer-links" aria-label="Social links"></nav>
+    </footer>
+  </body>
+</html>
