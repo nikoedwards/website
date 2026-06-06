@@ -39,7 +39,8 @@ The places page uses Leaflet with OpenStreetMap tiles. Visited regions are confi
 ## GitHub Contribution Graph
 
 The contribution graph is generated from GitHub's public contribution endpoint and saved
-as `contributions.svg`. Private/self-only contribution counts are not available without an
+as `contributions.json`. The website renders the graph with native HTML/CSS so it can match
+the current light or dark theme. Private/self-only contribution counts are not available without an
 authenticated GitHub token, so the public website may differ from the graph you see while
 logged in to GitHub.
 

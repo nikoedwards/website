@@ -13,6 +13,26 @@ const siteConfig = {
   },
   featuredProjects: [
     {
+      title: "KickSonar",
+      summary: {
+        zh: "一个 TypeScript Web 项目，在线版本部署在 kicksonar.com，代码维护在 nikoedwards/ks。",
+        en: "A TypeScript web project deployed at kicksonar.com and maintained in nikoedwards/ks.",
+      },
+      stack: ["TypeScript", "Web App"],
+      repo: "https://github.com/nikoedwards/ks",
+      live: "https://kicksonar.com",
+    },
+    {
+      title: "Seedance TVC",
+      summary: {
+        zh: "一个部署在 GitHub Pages 上的 JavaScript Web 项目，代码维护在 nikoedwards/seedancetvc。",
+        en: "A JavaScript web project deployed on GitHub Pages and maintained in nikoedwards/seedancetvc.",
+      },
+      stack: ["JavaScript", "GitHub Pages"],
+      repo: "https://github.com/nikoedwards/seedancetvc",
+      live: "https://nikoedwards.github.io/seedancetvc/",
+    },
+    {
       title: "Personal Website",
       summary: {
         zh: "一个部署在 GitHub Pages 上的个人网站，用来展示 Vibe Coding、GitHub 项目和 Notion 文章。",
@@ -120,16 +140,21 @@ const translations = {
     },
     github: {
       index: "02 / GITHUB",
-      title: "仓库与 Contribution 面板",
+      title: "仓库与贡献面板",
       copy: "这里同步展示我的公开 GitHub 信息、最新仓库和公开 Contribution 快照。",
       repositories: "全部仓库 ->",
-      contributionCaption: "来自 GitHub 官方公开数据的 Contribution 快照：@nikoedwards",
+      contributionCaption: "GitHub 公开贡献快照：@nikoedwards",
       publicRepos: "公开仓库",
       followers: "关注者",
       latestPush: "最近推送",
       loading: "正在加载 GitHub 仓库...",
       unavailable: "GitHub 数据暂时不可用。",
       openGithub: "打开 GitHub ->",
+      contributionTotal: "过去一年公开贡献",
+      contributionLoading: "正在加载 Contribution 面板...",
+      contributionUnavailable: "Contribution 数据暂时不可用。",
+      less: "少",
+      more: "多",
       noRepos: "还没有公开仓库。",
       noDescription: "还没有公开描述。",
       stars: "stars",
@@ -219,13 +244,18 @@ const translations = {
       title: "Repositories and contribution graph",
       copy: "Public GitHub profile details, recent repositories, and the public contribution snapshot live here.",
       repositories: "Repositories ->",
-      contributionCaption: "Public GitHub contribution snapshot generated from GitHub for @nikoedwards",
+      contributionCaption: "Public GitHub contribution snapshot: @nikoedwards",
       publicRepos: "Public repos",
       followers: "Followers",
       latestPush: "Latest push",
       loading: "Loading GitHub repositories...",
       unavailable: "GitHub data is temporarily unavailable.",
       openGithub: "Open GitHub ->",
+      contributionTotal: "public contributions in the last year",
+      contributionLoading: "Loading contribution graph...",
+      contributionUnavailable: "Contribution data is temporarily unavailable.",
+      less: "Less",
+      more: "More",
       noRepos: "No public repositories yet.",
       noDescription: "No public description yet.",
       stars: "stars",
@@ -273,6 +303,7 @@ const state = {
     (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"),
   githubProfile: null,
   githubRepos: [],
+  githubContributions: null,
   articles: null,
   visitedMap: null,
   visitedMapLoading: false,
@@ -376,6 +407,7 @@ function applyLanguage() {
   renderArticleFallback();
   if (state.githubRepos.length) renderRepoGrid(state.githubRepos);
   if (state.githubProfile) renderGitHubProfile(state.githubProfile, state.githubRepos);
+  if (state.githubContributions) renderContributionGraph(state.githubContributions);
 }
 
 function setLocale(locale) {
@@ -571,6 +603,141 @@ function renderGitHubUnavailable() {
   grid.append(card);
 }
 
+function contributionMonthLabels(days) {
+  const labels = [];
+  const seenMonths = new Set();
+
+  days.forEach((day) => {
+    const date = new Date(`${day.date}T00:00:00Z`);
+    const month = date.getUTCMonth();
+    const year = date.getUTCFullYear();
+    const key = `${year}-${month}`;
+    if (seenMonths.has(key)) return;
+
+    seenMonths.add(key);
+    labels.push({
+      label: new Intl.DateTimeFormat(state.locale === "zh" ? "zh-CN" : "en", {
+        month: "short",
+        timeZone: "UTC",
+      }).format(date),
+      week: day.week,
+    });
+  });
+
+  return labels;
+}
+
+function renderContributionLegend() {
+  const legend = byId("contribution-legend");
+  if (!legend) return;
+
+  legend.innerHTML = "";
+  legend.append(createTextElement("span", t("github.less")));
+
+  for (let level = 0; level <= 4; level += 1) {
+    const square = document.createElement("i");
+    square.className = "contribution-legend-cell";
+    square.dataset.level = String(level);
+    legend.append(square);
+  }
+
+  legend.append(createTextElement("span", t("github.more")));
+}
+
+function renderContributionGraph(data) {
+  const chart = byId("contribution-chart");
+  if (!chart) return;
+
+  const days = Array.isArray(data.days)
+    ? data.days
+        .filter((day) => day.date)
+        .map((day) => ({
+          date: day.date,
+          week: Number(day.week) || 0,
+          day: Number(day.day) || 0,
+          level: Math.max(0, Math.min(4, Number(day.level) || 0)),
+        }))
+        .sort((a, b) => new Date(a.date) - new Date(b.date))
+    : [];
+
+  if (!days.length) {
+    renderContributionUnavailable();
+    return;
+  }
+
+  const contributionTotal = byId("contribution-total");
+  if (contributionTotal) {
+    const count = data.count || data.totalContributions || "Public";
+    contributionTotal.textContent =
+      state.locale === "zh" && count !== "Public" ? `${count} 次` : `${count} contributions`;
+  }
+
+  renderContributionLegend();
+  chart.innerHTML = "";
+
+  const weeks = Math.max(53, Math.max(...days.map((day) => day.week)) + 1);
+  chart.style.setProperty("--weeks", String(weeks));
+
+  const monthRow = document.createElement("div");
+  monthRow.className = "contribution-months";
+  monthRow.style.setProperty("--weeks", String(weeks));
+
+  contributionMonthLabels(days).forEach((month) => {
+    const label = document.createElement("span");
+    label.textContent = month.label;
+    label.style.gridColumn = `${month.week + 1} / span 4`;
+    monthRow.append(label);
+  });
+
+  const body = document.createElement("div");
+  body.className = "contribution-body";
+
+  const weekdays = document.createElement("div");
+  weekdays.className = "contribution-weekdays";
+  const weekdayLabels =
+    state.locale === "zh" ? ["", "一", "", "三", "", "五", ""] : ["", "Mon", "", "Wed", "", "Fri", ""];
+  weekdayLabels.forEach((label) => weekdays.append(createTextElement("span", label)));
+
+  const grid = document.createElement("div");
+  grid.className = "contribution-grid";
+  grid.style.setProperty("--weeks", String(weeks));
+
+  days.forEach((day) => {
+    const cell = document.createElement("span");
+    cell.className = "contribution-cell";
+    cell.dataset.level = String(day.level);
+    cell.style.gridColumn = `${day.week + 1}`;
+    cell.style.gridRow = `${day.day + 1}`;
+    cell.title = `${day.date} · level ${day.level}`;
+    cell.setAttribute("aria-label", cell.title);
+    grid.append(cell);
+  });
+
+  body.append(weekdays, grid);
+  chart.append(monthRow, body);
+}
+
+function renderContributionUnavailable() {
+  const chart = byId("contribution-chart");
+  if (!chart) return;
+  chart.innerHTML = "";
+  chart.append(createTextElement("p", t("github.contributionUnavailable"), "contribution-empty"));
+}
+
+async function loadContributions() {
+  if (!byId("contribution-chart")) return;
+
+  try {
+    const response = await fetch(`contributions.json?v=${Date.now()}`);
+    if (!response.ok) throw new Error("Contribution data unavailable");
+    const data = await response.json();
+    state.githubContributions = data;
+    renderContributionGraph(data);
+  } catch (error) {
+    renderContributionUnavailable();
+  }
+}
+
 async function loadGitHub() {
   const needsGitHub = ["avatar", "repo-grid", "repo-count", "follower-count", "latest-push"].some((id) =>
     byId(id),
@@ -684,4 +851,5 @@ renderNotionEmbed();
 renderSocials();
 loadArticleFeed();
 loadGitHub();
+loadContributions();
 renderVisitedPlaces();

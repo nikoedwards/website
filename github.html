@@ -57,9 +57,20 @@
 
       <section class="section" aria-label="GitHub contribution graph">
         <figure class="contribution-frame">
-          <img src="contributions.svg" alt="Public GitHub contribution graph for @nikoedwards" />
+          <div class="contribution-top">
+            <div class="contribution-stat">
+              <strong id="contribution-total">-</strong>
+              <span data-i18n="github.contributionTotal">public contributions in the last year</span>
+            </div>
+            <div id="contribution-legend" class="contribution-legend" aria-label="Contribution level legend"></div>
+          </div>
+          <div class="contribution-scroll" aria-label="Public GitHub contribution graph for @nikoedwards">
+            <div id="contribution-chart" class="contribution-chart">
+              <p class="contribution-empty" data-i18n="github.contributionLoading">Loading contribution graph...</p>
+            </div>
+          </div>
           <figcaption data-i18n="github.contributionCaption">
-            Public GitHub contribution snapshot generated from GitHub for @nikoedwards
+            Public GitHub contribution snapshot: @nikoedwards
           </figcaption>
         </figure>
 
